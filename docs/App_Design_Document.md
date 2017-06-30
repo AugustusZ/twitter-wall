@@ -65,8 +65,11 @@ Build a **Twitter Wall** web app in one week.
 ### Note
 1. **Information** might not be the same if the app is open at different times because tweets are not stored according to current design.
 
-## Wireframe
-
-Dimension: 1024x768
+## Wireframe and Mockup
+### Wireframe
+Dimension: 1024x768 [View it on Wireframe.cc](https://wireframe.cc/OPrqLi)
 ![wireframe](wireframe.png)
-[View it on Wireframe.cc](https://wireframe.cc/OPrqLi)
+
+### Mockup
+Dimension: 1024x700
+![mockup](mockup.png)

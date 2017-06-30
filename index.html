@@ -10,14 +10,17 @@
   <script src="node_modules/reflect-metadata/Reflect.js"></script>
   <script src="node_modules/systemjs/dist/system.src.js"></script>
   <script src="systemjs.config.js"></script>
-  <link href="assets/css/resets.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
   <script>
         System.import('app').catch(function(err){ console.error(err); });
     </script>
 </head>
 
 <body>
-  <tw-app>Loading...</tw-app>
+  <div class="container">
+    <tw-app>Loading...</tw-app>
+  </div>
 </body>
 
 </html>

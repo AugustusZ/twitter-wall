@@ -1,0 +1,48 @@
+.tweet .content {
+    margin-left: 58px;
+}
+
+.profile-image {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.tweet .profile-image {
+    float: left;
+    margin-left: -58px;
+}
+
+.user-info {
+    color:black;
+}
+
+.user-name {
+    font-weight: 600;
+}
+
+.time-text {
+    float: right;
+    color: #aaa;
+}
+
+.tweet-text {
+    margin: 5px 0;
+    font-size: 200%;
+}
+
+.tweet-media {
+    border-radius: 5px;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    vertical-align: top;
+    width: 100%;
+}
+
+.tweet-media img {
+    width: 100%;
+}
+.tweet-media video {
+    width: 100%;
+}

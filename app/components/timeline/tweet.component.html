@@ -1,0 +1,20 @@
+<div class="tweet panel panel-default">
+  <div class="panel-body content">
+    <div class="tweet-header">
+      <a href="http://twitter.com/{{tweet.userId}}">
+        <img class="profile-image" src="{{ tweet.profileImageUrl }}" />
+        <span class="user-info"><span class="user-name">{{tweet.userName}}</span>
+        <span class="user-id">@{{ tweet.userId }}</span>
+        </span>
+      </a>
+      <span class="time-text">{{tweet.timeText}}</span>
+    </div>
+    <div class="tweet-body">
+      <div class="tweet-text lead">{{ tweet.text }}</div>
+      <div class="tweet-media" *ngIf="tweet.mediaType">
+          <img *ngIf="tweet.mediaType==='image'" src="{{tweet.mediaUrl}}" />
+          <video *ngIf="tweet.mediaType==='video'" src="{{tweet.mediaUrl}}" ><source src="{{tweet.mediaUrl}}"></video>
+      </div>
+    </div>
+  </div>
+</div>

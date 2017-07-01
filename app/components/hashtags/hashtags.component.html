@@ -3,8 +3,11 @@
     <h3 class="panel-title">Hashtags</h3>
   </div>
   <div class="panel-body">
-    <div class="label label-primary">#hashtag</div>
-    <div class="label label-primary">#hashtags</div>
-    <div class="label label-primary">+</div>
+    <div class="labels">
+      <div class="label label-primary clickable label-hashtag" 
+      *ngFor="let tag of tags" (click)="onTagClick($event, tag)">#{{ tag }}</div><div class="label label-primary clickable" id="addButton" 
+      (click)="onAddButtonClick($event)">{{isEditing ? '#' : '+'}}</div><input *ngIf="isEditing" type="text" pattern="^[A-Za-z0-9]+$" placeholder="hashtag"
+      #newHashtag (keyup.enter)="addNewHashtag(newHashtag.value); newHashtag.value=''" autofocus>
+    </div>
   </div>
 </div>

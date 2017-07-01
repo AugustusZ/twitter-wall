@@ -5,3 +5,7 @@ h1 .label {
 a {
     text-decoration: none !important;
 }
+
+.clickable {
+    cursor: pointer;
+}

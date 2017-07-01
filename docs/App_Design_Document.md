@@ -60,6 +60,7 @@ Build a **Twitter Wall** web app in one week.
 ### (Future Features)
 - Hotspot Map
 - Responsiveness
+- Pin-to-Top
 - **Information** Consistency (See **Note**)
 
 ### Note

@@ -123,6 +123,6 @@ this app should be composed of three parts as follows:
 2. Server
 3. Data store
 
-Front-end will keep requesting latest tweets from server, and display the response properly to user; Server will keep processing the streaming tweets (containing a fixed set of hashtags, as discussed above) and save them in proper format so that server can respond to front-end as needed. Thus, a database is needed for multiple clients accessing to the data in the same period of time; otherwise, the API will soon reaches the rate limit. As a consequence, when the app launches in users' browsers at different times, the users should see the same at the same moment.
+Front-end will keep requesting latest tweets from server, and displaying the response properly to user; Server will keep processing the streaming tweets (containing a fixed set of hashtags, as discussed above) and saving them in proper format so that server can respond to front-end as needed. Thus, a database is needed for multiple clients accessing to the data in the same period of time (otherwise, the number of connections to the Twitter API will soon reach the limit for one credential). As a consequence, when the app launches in users' browsers at different times, the users should see the same at the same moment.
 
 To make the implementation more approachable, for now (before it is published as a real product), let's establish a new connection to Twitter API **every time** the app is launched. After that, we bring database into play.

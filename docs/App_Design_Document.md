@@ -119,10 +119,8 @@ According to [Twitter API doc](https://dev.twitter.com/streaming/overview#differ
 
 this app should be composed of three parts as follows:
 
-1. Front-end in Angular 2
-2. Server
-3. Data store
+1. Client 
+2. Server 
+3. Data store 
 
-Front-end will keep requesting latest tweets from server, and displaying the response properly to user; Server will keep processing the streaming tweets (containing a fixed set of hashtags, as discussed above) and saving them in proper format so that server can respond to front-end as needed. Thus, a database is needed for multiple clients accessing to the data in the same period of time (otherwise, the number of connections to the Twitter API will soon reach the limit for one credential). As a consequence, when the app launches in users' browsers at different times, the users should see the same at the same moment.
-
-To make the implementation more approachable, for now (before it is published as a real product), let's establish a new connection to Twitter API **every time** the app is launched. After that, we bring database into play.
+The server is running all the time (no stopping and starting) with fixed keywords (for now). While the server gets back stream results, a few more values (for the things needed for the front end) should be also calculated and stored in memory (data store). When the clients connect to the backend, the server provides a `GET` request connection with appropriate JSON needed for front end. In this way, it is not possible to reach the limit for one credential. As a consequence, when the app launches in users' browsers at different times, the users should see the same at the same moment.

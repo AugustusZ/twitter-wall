@@ -25,7 +25,10 @@ export class HashtagsComponent {
   }
 
   addNewHashtag(newHashtag) {
-    this.tags.push(this.tagify(newHashtag));
+    var tagified = this.tagify(newHashtag);
+    if (tagified !== '') {
+      this.tags.push(tagified);
+    }
   }
 
   tagify(str: string): string {

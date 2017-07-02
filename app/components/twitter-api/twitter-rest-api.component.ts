@@ -14,7 +14,7 @@ export class TwitterRestApiComponent {
     tweetsdata = [];
 
     constructor(private http: Http, private renderer: Renderer) {
-        this.makeCall();
+        // this.makeCall();
     }
 
     makeCall() {

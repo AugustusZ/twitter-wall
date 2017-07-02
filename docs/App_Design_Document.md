@@ -124,3 +124,27 @@ this app should be composed of three parts as follows:
 3. Data store 
 
 The server is running all the time (no stopping and starting) with fixed keywords (for now). While the server gets back stream results, a few more values (for the things needed for the front end) should be also calculated and stored in memory (data store). When the clients connect to the backend, the server provides a `GET` request connection with appropriate JSON needed for front end. In this way, it is not possible to reach the limit for one credential. As a consequence, when the app launches in users' browsers at different times, the users should see the same at the same moment.
+
+### Data Communication 
+
+- **Twitter API --> Server**: A Streaming API's [tweet JSON](https://dev.twitter.com/overview/api/tweets) is taken **untouched** when prepended into the `tweetsData` array on server. 
+
+- **Client --> Server**: When frontend requests latest tweets, it passes an `index` indicating that the latest tweet the frontend has is `tweetsData[index - 1]`. The parameter of the very **first** request since a client is launched will be: 
+
+		{
+			index: 0
+		} 
+		
+	so that all tweets on server can be fetched (which is actually not necessary).
+
+- **Server --> Client**: The server only needs to pick up where this client left off and sends back such an **incremental update** JSON:
+
+		{
+	        success: true,
+	        index: tweetsData.length, // update client's index
+	        data: tweetsData.slice(req.body.index) // newly posted tweets since last time
+	    }
+    
+	so that no redundant tweets sent to the same client along the time.
+
+

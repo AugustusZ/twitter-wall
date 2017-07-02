@@ -60,4 +60,5 @@ typings/
 # visual studio code
 .vscode
 
-backend/config.js
+# Script to add twitter's keys and secrets to environment variables
+twitter_env.sh

@@ -33,7 +33,7 @@ import { TweetComponent } from './components/timeline/tweet.component';
     TweetComponent
   ],
   bootstrap: [
-    TwitterRestApiComponent,
+    // TwitterRestApiComponent,
     AppComponent
   ]
 })

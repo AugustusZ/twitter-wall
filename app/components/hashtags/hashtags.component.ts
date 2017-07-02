@@ -6,12 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./assets/css/hashtags.component.css']
 })
 export class HashtagsComponent {
-  tags: string[] = [];
+  tags: string[];
+  editable: boolean;
   isEditing: boolean;
 
   constructor() {
-    this.tags.push('hashtag');
+    this.tags = [
+      'Esri',
+      'EsriUC'
+    ];
     this.isEditing = false;
+    this.editable = false;
   }
   
   onAddButtonClick(e) {

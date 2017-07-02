@@ -4,9 +4,4 @@ import { Component } from '@angular/core';
   selector: 'tw-app',
   templateUrl: './app/components/app.component.html'
 })
-export class AppComponent {
-  tags: string[] = [
-    'apple',
-    'pineapple'
-  ];
-}
+export class AppComponent {}

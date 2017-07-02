@@ -1,4 +1,9 @@
 <div class="container col-lg-8">
+    <div class="jumbotron" *ngIf="tweets.length==0">
+        <h1 [innerHTML]="messages.headText[havingServerError ? 'failure' : 'default']">{{messages.headText.default}}</h1>
+        <p [innerHTML]="messages.paraText[havingServerError ? 'failure' : 'default']">{{messages.paraText.default}}</p>
+        <p><a class="btn btn-primary btn-lg" href="mailto:zhangyankuan@outlook.com">Email to the author</a></p>
+    </div>
     <tw-tweet
         [ngClass]="{}" 
         *ngFor="let tweet of tweets"

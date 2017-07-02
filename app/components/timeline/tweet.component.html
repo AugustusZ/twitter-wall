@@ -1,4 +1,4 @@
-<div class="tweet panel panel-default" *ngIf="showingRetweet || !tweet.retweeted_status">
+<div class="tweet panel panel-default" *ngIf="showingRetweet || !(tweet.retweeted_status || tweet.quoted_status)">
   <div class="panel-body content">
     <div class="tweet-header">
       <a href="http://twitter.com/{{tweet.user.screen_name}}">

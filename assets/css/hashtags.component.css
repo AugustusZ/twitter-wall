@@ -24,3 +24,7 @@
 #addButton {
     margin: 0 -6px 0 0;
 }
+
+.hashtags-component h1 {
+    margin: -5px 0 5px 0;
+}

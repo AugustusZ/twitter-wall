@@ -1,19 +1,19 @@
-<div class="tweet panel panel-default">
+<div class="tweet panel panel-default" *ngIf="showingRetweet || !tweet.retweeted_status">
   <div class="panel-body content">
     <div class="tweet-header">
-      <a href="http://twitter.com/{{tweet.userId}}">
-        <img class="profile-image" src="{{ tweet.profileImageUrl }}" />
-        <span class="user-info"><span class="user-name">{{tweet.userName}}</span>
-        <span class="user-id">@{{ tweet.userId }}</span>
+      <a href="http://twitter.com/{{tweet.user.screen_name}}">
+        <img class="profile-image" src="{{tweet.user.profile_image_url}}" />
+        <span class="user-info"><span class="user-name">{{tweet.user.name}}</span>
+        <span class="user-id">@{{tweet.user.screen_name}}</span>
         </span>
       </a>
-      <span class="time-text">{{tweet.timeText}}</span>
+      <span class="time-text">{{tweet.timestamp_ms}}</span>
     </div>
     <div class="tweet-body">
-      <div class="tweet-text lead">{{ tweet.text }}</div>
-      <div class="tweet-media" *ngIf="tweet.mediaType">
-          <img *ngIf="tweet.mediaType==='image'" src="{{tweet.mediaUrl}}" />
-          <video *ngIf="tweet.mediaType==='video'" src="{{tweet.mediaUrl}}" ><source src="{{tweet.mediaUrl}}"></video>
+      <div class="tweet-text lead">{{tweet.text}}</div>
+      <div class="tweet-media" *ngIf="tweet.entities.media">
+          <img *ngIf="tweet.entities.media[0].type==='photo'" src="{{tweet.entities.media[0].media_url}}" />
+          <video *ngIf="tweet.entities.media[0].type==='video'" src="{{tweet.mediaUrl}}" ><source src="{{tweet.mediaUrl}}"></video>
       </div>
     </div>
   </div>

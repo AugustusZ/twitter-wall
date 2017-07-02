@@ -59,3 +59,5 @@ typings/
 
 # visual studio code
 .vscode
+
+backend/config.js

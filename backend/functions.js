@@ -1,95 +1,37 @@
 var request = require('request');
-var config = require('./config');
 
 functions = {
-    autoAuthorize: function() {
-        console.log('Auto-authorizing...');
-
-        let encoded_header = new Buffer(`${config.consumerkey}:${config.consumersecret}`).toString('base64');
-        request.post('https://api.twitter.com/oauth2/token', 
-            {
-                headers: { 
-                    Authorization: `Basic ${encoded_header}`,
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                },
-                form: {'grant_type': 'client_credentials'}
-            }, function (err, response, body) {
-                if (err) {
-                    console.log(err);
-                    console.log('Auto-authorization failed.');
-                } else {
-                    config.bearertoken = JSON.parse(body).access_token;
-                    console.log(`Bearertoken received: \n<${config.bearertoken}>`);
-                    console.log('Auto-authorized!');
-                }
-            });
+    condenseUser: function(user) {
+        return user = {
+            name: user.name,
+            screen_name: user.screen_name,
+            verified: user.verified,
+            profile_image_url: user.profile_image_url
+        }
     },
 
-    authorize: function(req, res) {
-        var header = `${config.consumerkey}:${config.consumersecret}`;
-        var encoded_header = new Buffer(header).toString('base64');
-
-        request.post('https://api.twitter.com/oauth2/token', 
-            {
-                headers: { 
-                    Authorization: `Basic ${encoded_header}`,
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                },
-                form: {'grant_type': 'client_credentials'}
-            }, function (err, response, body) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    config.bearertoken = JSON.parse(body).access_token;
-                    res.json({
-                        success: true,
-                        data: config.bearertoken
-                    });
-                }
-            });
+    condenseTweet: function(tweet) {
+        return condensed = {
+            created_at: tweet.created_at,
+            id: tweet.id,
+            text: tweet.text,
+            display_text_range: tweet.display_text_range,
+            user: functions.condenseUser(tweet.user),
+            is_orginal: !(!!tweet.retweeted_status || !!tweet.quoted_status),
+            entities: tweet.entities,
+            lang: tweet.lang,
+            timestamp_ms: tweet.timestamp_ms
+        }
     },
 
-    search: function(req, res) {
-        var encoded_search_query = encodeURIComponent(req.body.query);
-
-        request.get(`https://api.twitter.com/1.1/search/tweets.json?q=${encoded_search_query}&result_type=recent`, 
-            {
-                headers: { 
-                    Authorization: `Bearer ${config.bearertoken}`,
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                }
-            }, function (err, response, body) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    res.json({
-                        success: true,
-                        data: JSON.parse(body)
-                    });
-                }
-            });
-    },
-
-    user: function(req, res) {
-        var encoded_search_query = encodeURIComponent(req.body.screenname);
-
-        request.get(`https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=${encoded_search_query}&count=5`, 
-            {
-                headers: { 
-                    Authorization: `Bearer ${config.bearertoken}`,
-                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-                }
-            }, function (err, response, body) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    res.json({
-                        success: true,
-                        data: JSON.parse(body)
-                    });
-                }
-            });
+    getRanks: function(ranking, numOfRanks, cache) {
+        let rank = [];
+        ranking.find({ position: { $gte: 1, $lte: numOfRanks }, $limit: numOfRanks }).map(r => {
+            rank[r.position - 1] = cache[r.playerId];
+        });
+        return rank;
     }
+
 
 }
 

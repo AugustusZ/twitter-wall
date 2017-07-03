@@ -4,5 +4,8 @@
   </div>
   <div class="panel-body">
     <p *ngIf="userRanks.length==0">Star twitters are on the way!</p>
+    <div *ngFor="let userRank of userRanks">
+      <strong>{{userRank.user.name}}</strong> (@{{userRank.user.screen_name}}) posted {{userRank.count}} times
+    </div>
   </div>
 </div>

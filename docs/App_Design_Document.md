@@ -162,11 +162,11 @@ The server is running all the time (no stopping and starting) with fixed keyword
 	| `tweets.data` | array |  `tweetsData.slice(req.body.index)`, newly posted tweets since last time |
 	| `ranks` | object | ranking information shown in dashboard |
 	| `ranks.user_ranks` | array | 5 most active twitters. standard tweet's user object |
-	| `ranks.topic_ranks` | array | 5 most active twitters | 
-	| `ranks.media_ranks` | object | the most popular twitter media. standard tweet's media object |
+	| `ranks.topic_ranks` | array | 5 most active twitters. using node package of `keyword-extractor` | 
+	| `ranks.media_ranks` | object | the most popular twitter media. standard tweet's media object. "The most popular media" here means its tweet has the biggest value of a form of linear combination of `retweet_count` and `favorite_count`: e.g. `weight = retweet_count * 2 + favorite_count`|
 	
 		
-	
+
 	
 
 

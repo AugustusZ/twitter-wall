@@ -26,14 +26,14 @@ export class AppComponent {
     let params: URLSearchParams = new URLSearchParams();
     params.set('index', this.currentIndex.toString());
 
-    this.http.get('http://localhost:4200/stream', {
+    this.http.get('http://localhost:4242/', {
         search: params
     }).subscribe(
       res => {
         var response = res.json();
-        this.currentIndex = response.index;
-        // this.ranks = response.ranks;
-        var newTweets = response.data;
+        this.ranks = response.ranks;
+        this.currentIndex = response.tweets.index;
+        var newTweets = response.tweets.data;
         newTweets.forEach(newTweet => {
             this.tweets.unshift(newTweet); // prepend 
         });

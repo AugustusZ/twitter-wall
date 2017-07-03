@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'tw-topics',
   templateUrl: './app/components/topics/topics.component.html'
 })
-export class TopicsComponent {}
+export class TopicsComponent {
+  @Input() topicRanks;
+}

@@ -5,6 +5,9 @@
     </div>
     <div class="panel-body">
       <p *ngIf="mediaRanks.length==0">The most popular media are on the way!</p>
+      <div *ngFor="let mediaRank of mediaRanks" class="tweet-media">
+        <img *ngIf="mediaRank.media[0].type==='photo'" src="{{mediaRank.media[0].media_url}}" />
+    </div>
     </div>
   </div>
 </div>

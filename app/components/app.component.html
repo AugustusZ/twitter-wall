@@ -1,2 +1,7 @@
-<tw-dashboard>Loading dashboard...</tw-dashboard>
-<tw-timeline>Loading timeline...</tw-timeline>
+<tw-dashboard
+    [havingServerError]="havingServerError"
+    [ranks]="ranks"
+    >Loading dashboard...</tw-dashboard>
+<tw-timeline 
+    [havingServerError]="havingServerError"
+    [tweets]="tweets">Loading timeline...</tw-timeline>

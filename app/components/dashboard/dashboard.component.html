@@ -1,7 +1,7 @@
 <div class="col-lg-4">
     <tw-hashtags>Loading Hashtags...</tw-hashtags>
-    <tw-star-twitter>Loading Star Twitter...</tw-star-twitter>
-    <tw-topics>Loading Topics...</tw-topics>
-    <tw-most-popular>Loading Most Popular...</tw-most-popular>
+    <tw-star-twitter [userRanks]="ranks['user_ranks']">Loading Star Twitter...</tw-star-twitter>
+    <tw-topics [topicRanks]="ranks['topic_ranks']">Loading Topics...</tw-topics>
+    <tw-most-popular [mediaRanks]="ranks['media_ranks']">Loading Most Popular...</tw-most-popular>
     <tw-map>Loading Map...</tw-map>
 </div>

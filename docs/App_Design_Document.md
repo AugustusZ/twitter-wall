@@ -141,10 +141,32 @@ The server is running all the time (no stopping and starting) with fixed keyword
 
 		{
 	        success: true,
-	        index: tweetsData.length, // update client's index
-	        data: tweetsData.slice(req.body.index) // newly posted tweets since last time
+	        tweets: {
+		        index: 0,
+		        data: []
+	        }
+	        ranks: {
+		        user_ranks: [],
+		        topic_ranks: [],
+		        media_ranks: []
+	        }
 	    }
     
 	so that no redundant tweets sent to the same client along the time.
+	
+	| Field | Type | Description |
+	|:---|:---:|:---|
+	| `success` | boolean | |
+	| `tweets` | object | data for tweets shown in timeline |
+	| `tweets.index` | number | `tweetsData.length`, updated client's index |
+	| `tweets.data` | array |  `tweetsData.slice(req.body.index)`, newly posted tweets since last time |
+	| `ranks` | object | ranking information shown in dashboard |
+	| `ranks.user_ranks` | array | 5 most active twitters. standard tweet's user object |
+	| `ranks.topic_ranks` | array | 5 most active twitters | 
+	| `ranks.media_ranks` | object | the most popular twitter media. standard tweet's media object |
+	
+		
+	
+	
 
 

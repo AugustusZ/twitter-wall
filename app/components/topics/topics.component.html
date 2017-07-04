@@ -1,11 +1,14 @@
-<div class="panel panel-primary">
+<div class="panel panel-primary topics-component">
+    <ng-template #titleTemplate>
+        {{topNumber > 1 ? 'Top '  + topNumber + ' Hot' : 'The Hottest'}} Topic{{topNumber > 1 ? 's' : ''}}
+    </ng-template>
 <div class="panel-heading">
-    <h3 class="panel-title">Topics</h3>
+    <tw-button-header (topNumber)="updateTopNumber($event)" [template]="titleTemplate"></tw-button-header>
 </div>
 <div class="panel-body">
     <p *ngIf="topicRanks.length==0">Popular topics are on the way!</p>
-    <div *ngFor="let topicRank of topicRanks">
-      <strong>{{topicRank.topic}}</strong> is shown {{topicRank.count}} times
-    </div>
+    <span *ngFor="let topicRank of topicRanks.slice(0,topNumber)">
+        <span class="label label-primary label-topic">{{topicRank.topic | uppercase}} <span class="weak">({{topicRank.count}})</span></span>
+    </span>
 </div>
 </div>

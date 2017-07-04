@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'tw-hashtags',
   templateUrl: './app/components/hashtags/hashtags.component.html',
-  styleUrls: ['./assets/css/hashtags.component.css']
+  styleUrls: ['./app/components/hashtags/hashtags.component.css']
 })
 export class HashtagsComponent {
   tags: string[];

@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
-import {TimeAgoPipe} from 'time-ago-pipe';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 import { AppComponent } from './components/app.component';
-import { TwitterRestApiComponent } from "./components/twitter-api/twitter-rest-api.component";
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HashtagsComponent } from './components/hashtags/hashtags.component';
 import { StarTwitterComponent } from './components/star-twitter/star-twitter.component';
@@ -14,7 +13,7 @@ import { MostPopularComponent } from './components/most-popular/most-popular.com
 import { MapComponent } from './components/map/map.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TweetComponent } from './components/timeline/tweet.component';
-import { ButtonHeaderComponent } from './components/button-header/button-header.component';
+import { ButtonHeaderComponent } from './components/shared/button-header/button-header.component';
 
 
 @NgModule({
@@ -25,7 +24,6 @@ import { ButtonHeaderComponent } from './components/button-header/button-header.
   ],
   declarations: [
     AppComponent,
-    TwitterRestApiComponent,
     DashboardComponent,
     HashtagsComponent,
     StarTwitterComponent,
@@ -38,7 +36,6 @@ import { ButtonHeaderComponent } from './components/button-header/button-header.
     TimeAgoPipe
   ],
   bootstrap: [
-    // TwitterRestApiComponent,
     AppComponent
   ]
 })

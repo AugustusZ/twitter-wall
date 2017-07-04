@@ -2,8 +2,8 @@ import { Component, Input, Output, EventEmitter, TemplateRef } from '@angular/co
 
 @Component({
   selector: 'tw-button-header',
-  templateUrl: './app/components/button-header/button-header.component.html',
-  styleUrls: ['./app/components/button-header/button-header.component.css']
+  templateUrl: './app/components/shared/button-header/button-header.component.html',
+  styleUrls: ['./app/components/shared/button-header/button-header.component.css']
 })
 export class ButtonHeaderComponent {
   const numOfMoreTopics: number = 5;

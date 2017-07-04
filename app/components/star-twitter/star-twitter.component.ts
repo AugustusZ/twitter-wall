@@ -7,6 +7,7 @@ import { Component, Input, EventEmitter } from '@angular/core';
 })
 export class StarTwitterComponent {
   @Input() userRanks;
+
   topNumber: number;
 
   updateTopNumber(newTopNumber) {

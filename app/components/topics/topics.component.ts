@@ -7,6 +7,7 @@ import { Component, Input, EventEmitter } from '@angular/core';
 })
 export class TopicsComponent {
   @Input() topicRanks;
+
   topNumber: number;
   
   updateTopNumber(newTopNumber) {

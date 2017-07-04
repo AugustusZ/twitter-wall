@@ -12,7 +12,14 @@ var appSettings = {
             'read',
             'blog',
             'check',
-            'things'
+            'things',
+            'find',
+            'miss',
+            'learn',
+            'week',
+            'booth',
+            'amp',
+            '',
         ]
     }
 };

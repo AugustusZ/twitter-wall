@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
+import {TimeAgoPipe} from 'time-ago-pipe';
 
 import { AppComponent } from './components/app.component';
 import { TwitterRestApiComponent } from "./components/twitter-api/twitter-rest-api.component";
@@ -30,7 +31,8 @@ import { TweetComponent } from './components/timeline/tweet.component';
     MostPopularComponent,
     MapComponent,
     TimelineComponent,
-    TweetComponent
+    TweetComponent,
+    TimeAgoPipe
   ],
   bootstrap: [
     // TwitterRestApiComponent,

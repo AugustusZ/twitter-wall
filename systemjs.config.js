@@ -9,13 +9,15 @@
     'app': 'app', // 'dist',
 
     '@angular': 'node_modules/@angular',
-    'rxjs': 'node_modules/rxjs'
+    'rxjs': 'node_modules/rxjs',
+    'time-ago-pipe':'node_modules/time-ago-pipe'
   };
 
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app': { main: 'main.js', defaultExtension: 'js' },
-    'rxjs': { defaultExtension: 'js' }
+    'rxjs': { defaultExtension: 'js' },
+    'time-ago-pipe': {main: 'time-ago-pipe.js'}
   };
 
   var ngPackageNames = [

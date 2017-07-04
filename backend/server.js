@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyparser = require('body-parser');
 var cors = require('cors');
+var fs = require('fs');
 var Twitter = require('twitter');
 var KeywordExtractor = require('keyword-extractor');
 var Ranking = require('ranking');
@@ -31,17 +32,16 @@ var twitter = new Twitter({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 })
 
+var vocabularyStream = fs.createWriteStream('./words.txt');
+
 // mock data streaming API
-data.map((tweet) => {
-// twitter.stream('statuses/filter', {track: '#esri,#esriuc'}, function(stream) {
-    // stream.on('data', function(tweet) {
-        // console.log('--------------------');
-        // console.log(`${tweetsData.length + 1} >>> ${tweet.user.name}(@${tweet.user.screen_name}): ${tweet.text}`);
-        // tweetsData.push(tweet);
-        // console.log('--------------------');
+// data.map((tweet) => {
+twitter.stream('statuses/filter', {track: '#esri,#esriuc'}, function(stream) {
+    stream.on('data', function(tweet) {
+        console.log(`${tweetsData.length + 1} >>> ${tweet.user.name}(@${tweet.user.screen_name}): ${tweet.text}`);
+        console.log('----------------------------------------');
 
         tweetsData.push(functions.condenseTweet(tweet));
-        // tweetsData.push(tweet);
 
         // rank user
         let userId = tweet.user.id;
@@ -66,6 +66,9 @@ data.map((tweet) => {
             
             if (blacklist.indexOf(topic) < 0) {
 
+                // collect words
+                vocabularyStream.write(`${topic}\n`);
+                
                 // get topic id
                 let topicId;
                 if (topic in topicIdMap) {
@@ -109,10 +112,11 @@ data.map((tweet) => {
             }
         }
 
-    // });
-    // stream.on('error', function(error) {
-    //     throw error;
-    // });
+    });
+
+    stream.on('error', function(error) {
+        throw error;
+    });
 });
 
 app.use(bodyparser.urlencoded({extended: true}));
@@ -133,5 +137,5 @@ app.get('/', function(req, res, next) {
     });
 });
 
-app.listen(4242);
-console.log('listening on 4242');
+app.listen(4321);
+console.log('listening on 4321');

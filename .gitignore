@@ -62,3 +62,6 @@ typings/
 
 # Script to add twitter's keys and secrets to environment variables
 twitter_env.sh
+
+# collecting words to build a balcklist / whitelist
+backend/words.txt

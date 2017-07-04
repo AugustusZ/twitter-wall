@@ -26,7 +26,7 @@ export class AppComponent {
     let params: URLSearchParams = new URLSearchParams();
     params.set('index', this.currentIndex.toString());
 
-    this.http.get('http://localhost:4242/', {
+    this.http.get('http://localhost:4321/', {
         search: params
     }).subscribe(
       res => {

@@ -1,11 +1,24 @@
 <div class="panel panel-primary">
+  <ng-template #titleTemplate>
+    Star Twitter{{topNumber > 1 ? 's' : ''}}
+  </ng-template>
   <div class="panel-heading">
-    <h3 class="panel-title">Star Twitter</h3>
+     <tw-button-header (topNumber)="updateTopNumber($event)" [template]="titleTemplate"></tw-button-header>
   </div>
   <div class="panel-body">
     <p *ngIf="userRanks.length==0">Star twitters are on the way!</p>
-    <div *ngFor="let userRank of userRanks">
-      <strong>{{userRank.user.name}}</strong> (@{{userRank.user.screen_name}}) posted {{userRank.count}} times
+    <div style="text-align: center">
+      <div  *ngFor="let userRank of userRanks.slice(0,topNumber); let isFirst = first; let isLast = last; let i = index">
+        <div class="user-rank" [ngClass]="{'user-rank-first': isFirst}">
+          <a href="http://twitter.com/{{userRank.user.screen_name}}">
+            <div><img class="profile-image" src="{{userRank.user.profile_image_url}}" /></div>
+            <div class="user-info"><div class="user-name">{{userRank.user.name}}</div>
+            <div class="user-id">@{{userRank.user.screen_name}}</div>
+            </div>
+            <div><span *ngIf="topNumber > 1"><strong>#{{i+1}}</strong> &middot; </span>Posted {{userRank.count}} tweets</div>
+          </a>
+        </div><hr *ngIf="!isLast">
+      </div>
     </div>
   </div>
 </div>

@@ -14,6 +14,8 @@ import { MostPopularComponent } from './components/most-popular/most-popular.com
 import { MapComponent } from './components/map/map.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TweetComponent } from './components/timeline/tweet.component';
+import { ButtonHeaderComponent } from './components/button-header/button-header.component';
+
 
 @NgModule({
   imports: [
@@ -32,6 +34,7 @@ import { TweetComponent } from './components/timeline/tweet.component';
     MapComponent,
     TimelineComponent,
     TweetComponent,
+    ButtonHeaderComponent,
     TimeAgoPipe
   ],
   bootstrap: [

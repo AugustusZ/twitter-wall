@@ -13,7 +13,7 @@ export class TimelineComponent {
 
   messages = {
       headText: {
-        default: 'Here comes the new tweets!',
+        default: 'Here come the new tweets!',
         failure: 'Oops...'
       },
       paraText: {

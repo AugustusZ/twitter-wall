@@ -17,7 +17,7 @@ functions = {
             text: tweet.text,
             display_text_range: tweet.display_text_range,
             user: functions.condenseUser(tweet.user),
-            is_orginal: !(!!tweet.retweeted_status || !!tweet.quoted_status),
+            is_original: !(!!tweet.retweeted_status || !!tweet.quoted_status),
             entities: tweet.entities,
             lang: tweet.lang,
             timestamp_ms: tweet.timestamp_ms

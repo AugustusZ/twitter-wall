@@ -33,20 +33,20 @@ export class TweetComponent {
       // This is very naive, should find a better way to parse this
       let indexMap = {};
       
-      tweet.entities.urls.map((entry, i) => {
-          indexMap[entry.indices[0]] = [
-            entry.indices[1], 
-            (text) => {
-              return `<a href="${entry.expanded_url}">${entry.display_url}</a>`;
-            }
-          ];
-      });
-      
       tweet.entities.hashtags.map((entry, i) => {
           indexMap[entry.indices[0]] = [
             entry.indices[1], 
             (text) => {
               return `<a href="https://twitter.com/hashtag/${entry.text}">#${entry.text}</a>`;
+            }
+          ];
+      });
+
+      tweet.entities.urls.map((entry, i) => {
+          indexMap[entry.indices[0]] = [
+            entry.indices[1], 
+            (text) => {
+              return `<a href="${entry.expanded_url}">${entry.display_url.split('/')[0]}</a>`;
             }
           ];
       });

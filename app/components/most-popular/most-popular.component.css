@@ -1,3 +1,7 @@
 .tweet-media img {
     width: 100%;
 }
+
+.tweet.media video {
+    width: 100%;
+}

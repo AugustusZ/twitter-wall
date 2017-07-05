@@ -15,7 +15,8 @@ export class TweetComponent {
     this.tweetTextHtml = this.linkifyEntities(this.tweet);
     if (this.tweet.hasOwnProperty('display_text_range')) {
       // delete the tailing url for media
-      let tailUrl = this.tweet.text.slice(this.tweet.display_text_range[1], this.tweet.length);
+      // slice strating index plus one for showing emoji at the end of text properly
+      let tailUrl = this.tweet.text.slice(this.tweet.display_text_range[1] + 1, this.tweet.length);
       this.tweetTextHtml = this.tweetTextHtml.replace(tailUrl, '');
     }
   }

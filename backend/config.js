@@ -19,6 +19,9 @@ var appSettings = {
             'week',
             'booth',
             'amp',
+            'de', // french stopword
+            'des', // french stopword
+            'il', // french stopword
             '',
         ]
     }

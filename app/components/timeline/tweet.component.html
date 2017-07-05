@@ -7,13 +7,15 @@
         <span class="user-id">@{{tweet.user.screen_name}}</span>
         </span>
       </a>
-      <span class="time-text">{{tweet.created_at | timeAgo}}</span>
+      <a href="https://twitter.com/{{tweet.user.screen_name}}/status/{{tweet.id_str}}"><span class="time-text">{{tweet.created_at | timeAgo}}</span></a>
     </div>
     <div class="tweet-body">
       <div class="tweet-text lead">{{tweet.text | slice:(!!tweet.display_text_range ? tweet.display_text_range[0] : 0):(!!tweet.display_text_range ? tweet.display_text_range[1] : tweet.text.length)}}</div>
       <div class="tweet-media" *ngIf="tweet.entities.media">
+        <a href="{{tweet.entities.media[0].expanded_url}}">
           <img *ngIf="tweet.entities.media[0].type==='photo'" src="{{tweet.entities.media[0].media_url}}" />
           <video *ngIf="tweet.entities.media[0].type==='video'" src="{{tweet.mediaUrl}}" ><source src="{{tweet.mediaUrl}}"></video>
+        </a>
       </div>
     </div>
   </div>

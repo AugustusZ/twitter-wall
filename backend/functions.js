@@ -14,6 +14,7 @@ functions = {
         return condensed = {
             created_at: tweet.created_at,
             id: tweet.id,
+            id_str: tweet.id_str,
             text: tweet.text,
             display_text_range: tweet.display_text_range,
             user: functions.condenseUser(tweet.user),

@@ -12,7 +12,12 @@ export class TweetComponent {
   tweetTextHtml: string = 'N/A';
 
   ngOnChanges() {
-    this.tweetTextHtml = this.linkify_entities(this.tweet);
+    this.tweetTextHtml = this.linkifyEntities(this.tweet);
+    if (this.tweet.hasOwnProperty('display_text_range')) {
+      // delete the tailing url for media
+      let tailUrl = this.tweet.text.slice(this.tweet.display_text_range[1], this.tweet.length);
+      this.tweetTextHtml = this.tweetTextHtml.replace(tailUrl, '');
+    }
   }
 
   escapeHTML(html) {
@@ -22,21 +27,23 @@ export class TweetComponent {
   }
 
   // from https://gist.github.com/wadey/442463
-  linkify_entities(tweet: object) { 
+  // also saw this https://github.com/twitter/twitter-text-js but it does not support angular yet.
+
+  linkifyEntities(tweet: object) { 
       // This is very naive, should find a better way to parse this
-      var index_map = {};
+      let indexMap = {};
       
       tweet.entities.urls.map((entry, i) => {
-          index_map[entry.indices[0]] = [
+          indexMap[entry.indices[0]] = [
             entry.indices[1], 
             (text) => {
-              return `<a href="${entry.display_url}">${text}</a>`;
+              return `<a href="${entry.expanded_url}">${entry.display_url}</a>`;
             }
           ];
       });
       
       tweet.entities.hashtags.map((entry, i) => {
-          index_map[entry.indices[0]] = [
+          indexMap[entry.indices[0]] = [
             entry.indices[1], 
             (text) => {
               return `<a href="https://twitter.com/hashtag/${entry.text}">#${entry.text}</a>`;
@@ -45,7 +52,7 @@ export class TweetComponent {
       });
       
       tweet.entities.user_mentions.map((entry, i) => {
-          index_map[entry.indices[0]] = [
+          indexMap[entry.indices[0]] = [
             entry.indices[1], 
             (text) => {
               return `<a title="${entry.name}" href="http://twitter.com/${entry.screen_name}">${entry.name}</a>`;
@@ -53,16 +60,16 @@ export class TweetComponent {
           ];
       });
       
-      var result = "";
-      var last_i = 0;
-      var i = 0;
+      let result:string = '';
+      let last_i = 0;
+      let i = 0;
       
-      // iterate through the string looking for matches in the index_map
-      for (i=0; i < tweet.text.length; ++i) {
-          var ind = index_map[i];
-          if (ind) {
-              var end = ind[0];
-              var func = ind[1];
+      // iterate through the string looking for matches in the indexMap
+      for (i = 0; i < tweet.text.length; i++) {
+          let indexMapEntry = indexMap[i];
+          if (indexMapEntry) {
+              let end = indexMapEntry[0];
+              let func = indexMapEntry[1];
               if (i > last_i) {
                   result += this.escapeHTML(tweet.text.substring(last_i, i));
               }
@@ -75,7 +82,6 @@ export class TweetComponent {
       if (i > last_i) {
           result += this.escapeHTML(tweet.text.substring(last_i, i));
       }
-      
       console.log(result);
       return result;
   }

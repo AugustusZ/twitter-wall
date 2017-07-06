@@ -34,10 +34,7 @@ var twitter = new Twitter({
 
 var vocabularyStream = fs.createWriteStream('./words.txt');
 
-// mock data streaming API
-// data.map((tweet) => {
-twitter.stream('statuses/filter', {track: '#esri,#esriuc'}, function(stream) {
-    stream.on('data', function(tweet) {
+var updateWithNewTweet = function(tweet) {
         console.log(`${tweetsData.length + 1} >>> ${tweet.user.name}(@${tweet.user.screen_name}): ${tweet.text}`);
         console.log('----------------------------------------');
 
@@ -111,9 +108,20 @@ twitter.stream('statuses/filter', {track: '#esri,#esriuc'}, function(stream) {
                 }
             }
         }
+}
 
+// // mock data streaming API
+// var offest = 1000;
+// data.forEach((tweet) => { setTimeout(function() {
+//         updateWithNewTweet(tweet);
+//     }, offest); offest += 1000;
+// };
+
+// real data streaming API
+twitter.stream('statuses/filter', {track: '#esri,#esriuc'}, function(stream) {
+    stream.on('data', function(tweet) {
+        updateWithNewTweet(tweet);
     });
-
     stream.on('error', function(error) {
         throw error;
     });

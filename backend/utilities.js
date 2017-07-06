@@ -1,8 +1,15 @@
 var condensers = require('./condensers');
 var ranker = require('./ranker');
+var config = require('./config');
 
 var utilities = {
     tweetsData: [],
+
+    getMostRecentTweets: () => {
+        let end = utilities.tweetsData.length;
+        let start = end - config.portionLength > 0 ? end - config.portionLength : 0;
+        return utilities.tweetsData.slice(start, end);
+    },
 
     updateRankingToClient: (what, io) => {
         let currentRanking = ranker.getRanks(

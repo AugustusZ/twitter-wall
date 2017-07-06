@@ -26,10 +26,10 @@
                 $('#m').val(what[0].text);
             });
             socket.on('user rank', (what) => {
-                $('#ranking').prepend($('<li>').text(`User: ${what[0].user.name}`));
+                $('#ranking').prepend($('<li>').text(`User: ${what[0].data.name}`));
             });
             socket.on('topic rank', (what) => {
-                $('#ranking').prepend($('<li>').text(`Topic: ${what[0].topic}`));
+                $('#ranking').prepend($('<li>').text(`Topic: ${what[0].data}`));
             });
             socket.on('media rank', (what) => {
                 $('#ranking').prepend($('<li>').text(`Media: ${what[0]}`));

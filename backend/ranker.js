@@ -43,7 +43,7 @@ var ranker = {
             } else {
                 ranker.cacheData['user'][userId] = {
                     count: 1,
-                    user: condensers.condenseUser(tweet.user)
+                    data: condensers.condenseUser(tweet.user)
                 };
             }
             ranker.rankingData['user'].addPlayerPoints({ playerId: userId, points: 1 });
@@ -77,7 +77,7 @@ var ranker = {
                     } else {
                         ranker.cacheData['topic'][topicId] = {
                             count: 1,
-                            topic: topic
+                            data: topic
                         };
                     }
                     ranker.rankingData['topic'].addPlayerPoints({ playerId: topicId, points: 1 });
@@ -99,8 +99,8 @@ var ranker = {
                         }
                     } else {
                         ranker.cacheData['media'][mediaId] = {
-                            weight: weight,
-                            media: media
+                            count: weight,
+                            data: media
                         };
                         ranker.rankingData['media'].addPlayerPoints({ playerId: mediaId, points: weight });
                     }

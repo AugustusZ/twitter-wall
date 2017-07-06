@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Twitter Wall</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+      $(function () {
+            var socket = io();
+            $('form').submit(function(){
+                socket.emit('add hashtag', '');
+                return false;
+            });
+
+            socket.emit('delete hashtag', '');
+            
+            socket.on('new tweet', (what) => {
+                $('#tweet').prepend($('<li>').text(what.text));
+            });
+            socket.on('recent tweets', (what) => {
+                $('#m').val(what[0].text);
+            });
+            socket.on('user rank', (what) => {
+                $('#ranking').prepend($('<li>').text(`User: ${what[0].data.name}`));
+            });
+            socket.on('topic rank', (what) => {
+                $('#ranking').prepend($('<li>').text(`Topic: ${what[0].data}`));
+            });
+            socket.on('media rank', (what) => {
+                $('#ranking').prepend($('<li>').text(`Media: ${what[0]}`));
+            });
+        });
+  </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Socket.io test page</h1>
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label">The most recent tweet you just missed:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="m">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">Send</button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <div class="container">
+                <ol class="col-xs-9" id="tweet"></ol>
+                <ol class="col-xs-3" id="ranking"></ol>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

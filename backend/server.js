@@ -1,149 +1,51 @@
-var express = require('express');
 var bodyparser = require('body-parser');
 var cors = require('cors');
-var fs = require('fs');
-var Twitter = require('twitter');
-var KeywordExtractor = require('keyword-extractor');
-var Ranking = require('ranking');
+var express = require('express');
+var app = express();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
-var functions = require('./functions');
-var numOfRanks = require('./config').rankSettings;
-var blacklist = require('./config').topicSettings.blacklist;
+var utilities = require('./utilities');
+var streamer = require('./streamer');
+var config = require('./config');
 var data = require('./data').data;
 
-var app = express();
+streamer.streamingData(utilities.updateWithNewTweet, io);
+// streamer.mockStreamingData(data, utilities.updateWithNewTweet, io);
 
-// CACHE on server to keep track of information
-var tweetsData = [];
-var userCache = {};
-var topicCache = {};
-var mediaCache = {};
-var topicIdMap = {}; // topic -> topicId
+io.on('connection', (socket) => {
+    if (utilities.has(socket, 'client.conn.id')) {
+        console.log(`Socket.io: User [${socket.client.conn.id.substring(0,4)}] connected.`);
+    }
 
-// RANKING information to maintain along the time
-const userRanking = new Ranking({ maxScore: 1000000, branchFactor: 1000 });
-const topicRanking = new Ranking({ maxScore: 1000000, branchFactor: 1000 });
-const mediaRanking = new Ranking({ maxScore: 1000000, branchFactor: 1000 });
+    // return most recent tweets to user config.numberOfRecentTweets
+    let mostRecentTweets = utilities.getMostRecentTweets(); 
+    if (mostRecentTweets.length > 0) {
+        socket.emit('recent tweets', mostRecentTweets);
+    }
 
-var twitter = new Twitter({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
-})
-
-var vocabularyStream = fs.createWriteStream('./words.txt');
-
-var updateWithNewTweet = function(tweet) {
-        console.log(`${tweetsData.length + 1} >>> ${tweet.user.name}(@${tweet.user.screen_name}): ${tweet.text}`);
-        console.log('----------------------------------------');
-
-        tweetsData.push(functions.condenseTweet(tweet));
-
-        // rank user
-        let userId = tweet.user.id;
-        if (userId in userCache) {
-            userCache[userId].count++;
-        } else {
-            userCache[userId] = {
-                count: 1,
-                user: functions.condenseUser(tweet.user)
-            };
+    socket.on('disconnect', () => {
+        if (utilities.has(socket, 'client.conn.id')) {
+         console.log(`Socket.io: User [${socket.client.conn.id.substring(0,4)}] disconnected.`);
         }
-        userRanking.addPlayerPoints({ playerId: userId, points: 1 });
-
-        // rank topic
-        KeywordExtractor.extract(tweet.text, {
-            language: "english",
-            remove_digits: true,
-            return_changed_case: true,
-            remove_duplicates: false
-        }).map((keyword) => {
-            let topic = keyword.replace(/[^A-Za-z0-9\.+]+/gi, '');
-            
-            if (blacklist.indexOf(topic) < 0) {
-
-                // collect words
-                vocabularyStream.write(`${topic}\n`);
-                
-                // get topic id
-                let topicId;
-                if (topic in topicIdMap) {
-                    topicId = topicIdMap[topic];
-                } else {
-                    topicId = Object.keys(topicIdMap).length;
-                    topicIdMap[topic] = topicId;
-                }
-
-                if (topicId in topicCache) {
-                    topicCache[topicId].count++;	
-                } else {
-                    topicCache[topicId] = {
-                        count: 1,
-                        topic: topic
-                    };
-                }
-                topicRanking.addPlayerPoints({ playerId: topicId, points: 1 });
-            } 
-        });
-
-        // rank media (most popular tweet with media)
-        let retweetedTweet = tweet.retweeted_status;
-        if (!!retweetedTweet) {
-            let media = retweetedTweet.entities.media;
-            if (!!media && media.length > 0) { // there is retweeted media.
-                let mediaId = media[0].id;
-                let weight = retweetedTweet.retweet_count * 2 + retweetedTweet.favorite_count;
-                if (mediaId in mediaCache) {
-                    if (weight > mediaCache[mediaId]) {
-                        userRanking.addPlayerPoints({ playerId: mediaId, points: mediaCache[mediaId] - weight });
-                        mediaCache[mediaId].weight = weight;
-                    }
-                } else {
-                    mediaCache[mediaId] = {
-                        weight: weight,
-                        media: media
-                    };
-                    mediaRanking.addPlayerPoints({ playerId: mediaId, points: weight });
-                }
-            }
-        }
-}
-
-// // mock data streaming API
-// var offest = 1000;
-// data.forEach((tweet) => { setTimeout(function() {
-//         updateWithNewTweet(tweet);
-//     }, offest); offest += 1000;
-// };
-
-// real data streaming API
-twitter.stream('statuses/filter', {track: '#esri,#esriuc'}, function(stream) {
-    stream.on('data', function(tweet) {
-        updateWithNewTweet(tweet);
-    });
-    stream.on('error', function(error) {
-        throw error;
     });
 });
 
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(cors());
 
-app.get('/', function(req, res, next) {
+app.get('/socket', function(req, res){
+  res.sendFile(__dirname + '/index.html');
+});
+
+app.get('/data', function(req, res, next) {
+    let data = utilities.tweetsData.slice(req.query.index);
     res.json({
-        success: true,
-        tweets: {
-        	index: tweetsData.length,
-        	data: tweetsData.slice(req.query.index)
-        },
-        ranks: {
- 			user_ranks: functions.getRanks(userRanking, numOfRanks.NUM_OF_USER_RANKS, userCache), 
- 			topic_ranks: functions.getRanks(topicRanking, numOfRanks.NUM_OF_TOPIC_RANKS, topicCache), 
- 			media_ranks: functions.getRanks(mediaRanking, numOfRanks.NUM_OF_MEDIA_RANKS, mediaCache)
-        }
+        count: data.length,
+        data: data
     });
 });
 
-app.listen(4321);
-console.log('listening on 4321');
+server.listen(config.port, function () {
+  console.log('Server listening at port %d', config.port);
+});

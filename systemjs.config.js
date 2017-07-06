@@ -10,14 +10,18 @@
 
     '@angular': 'node_modules/@angular',
     'rxjs': 'node_modules/rxjs',
-    'time-ago-pipe':'node_modules/time-ago-pipe'
+    'time-ago-pipe':'node_modules/time-ago-pipe',
+    'ng2-socket-io': 'node_modules/ng2-socket-io',
+    'socket.io-client': 'node_modules/socket.io-client'
   };
 
   // packages tells the System loader how to load when no filename and/or no extension
   var packages = {
     'app': { main: 'main.js', defaultExtension: 'js' },
     'rxjs': { defaultExtension: 'js' },
-    'time-ago-pipe': {main: 'time-ago-pipe.js'}
+    'time-ago-pipe': {main: 'time-ago-pipe.js'},
+    'ng2-socket-io': {main: 'index.js'},
+    'socket.io-client': {main: 'socket.io.js'}
   };
 
   var ngPackageNames = [

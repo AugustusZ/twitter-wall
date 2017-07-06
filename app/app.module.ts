@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { SocketIoModule, SocketIoConfig } from 'ng2-socket-io';
+const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
 import { AppComponent } from './components/app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -14,11 +16,12 @@ import { MapComponent } from './components/map/map.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TweetComponent } from './components/timeline/tweet.component';
 import { ButtonHeaderComponent } from './components/shared/button-header/button-header.component';
-
+import { DataService } from './components/shared/data.service';
 
 @NgModule({
   imports: [
     BrowserModule,
+    SocketIoModule.forRoot(config),
     HttpModule,
     FormsModule
   ],
@@ -34,6 +37,9 @@ import { ButtonHeaderComponent } from './components/shared/button-header/button-
     TweetComponent,
     ButtonHeaderComponent,
     TimeAgoPipe
+  ],
+  providers: [
+    DataService
   ],
   bootstrap: [
     AppComponent

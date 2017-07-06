@@ -16,11 +16,7 @@ export class AppComponent {
     media_ranks: []
   }; // dummy value
 
-  constructor(private http: Http) {
-      setInterval(() => { 
-        this.fetchTweets(); 
-      }, this.refreshInterval);
-  }
+  constructor(private http: Http) {}
 
   fetchTweets() {
     let params: URLSearchParams = new URLSearchParams();

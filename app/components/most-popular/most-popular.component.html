@@ -6,9 +6,9 @@
     <div class="panel-body">
       <p *ngIf="mediaRanks.length==0">The most popular media are on the way!</p>
       <div *ngFor="let mediaRank of mediaRanks" class="tweet-media">
-        <a href="{{mediaRank.media[0].expanded_url}}">
-          <img *ngIf="mediaRank.media[0].type==='photo'" src="{{mediaRank.media[0].media_url}}" />
-          <video *ngIf="mediaRank.media[0].type==='video'"><source src="{{mediaRank.media[0].media_url}}"></video>
+        <a href="{{mediaRank.data[0].expanded_url}}">
+          <img *ngIf="mediaRank.data[0].type==='photo'" src="{{mediaRank.data[0].media_url}}" />
+          <video *ngIf="mediaRank.data[0].type==='video'"><source src="{{mediaRank.data[0].media_url}}"></video>
         </a>
     </div>
     </div>

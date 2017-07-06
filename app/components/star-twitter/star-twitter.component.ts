@@ -1,4 +1,5 @@
 import { Component, Input, EventEmitter } from '@angular/core';
+import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'tw-star-twitter',
@@ -6,9 +7,16 @@ import { Component, Input, EventEmitter } from '@angular/core';
   styleUrls: ['./app/components/shared/tweet-user.css']
 })
 export class StarTwitterComponent {
-  @Input() userRanks;
-
+  userRanks = [];
   topNumber: number;
+
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+      this.dataService.socket.on('user rank', (ranks) => {
+            this.userRanks = ranks;
+      })
+  }
 
   updateTopNumber(newTopNumber) {
     this.topNumber = newTopNumber;

@@ -1,4 +1,5 @@
 import { Component, Input, EventEmitter } from '@angular/core';
+import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'tw-topics',
@@ -6,10 +7,17 @@ import { Component, Input, EventEmitter } from '@angular/core';
   styleUrls: ['./app/components/topics/topics.component.css']
 })
 export class TopicsComponent {
-  @Input() topicRanks;
-
+  topicRanks = [];
   topNumber: number;
-  
+
+  constructor(private dataService: DataService) {}
+
+  ngOnInit() {
+      this.dataService.socket.on('topic rank', (ranks) => {
+            this.topicRanks = ranks;
+      })
+  }
+
   updateTopNumber(newTopNumber) {
     this.topNumber = newTopNumber;
   }

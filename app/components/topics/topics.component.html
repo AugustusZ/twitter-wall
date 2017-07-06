@@ -8,7 +8,7 @@
 <div class="panel-body">
     <p *ngIf="topicRanks.length==0">Popular topics are on the way!</p>
     <span *ngFor="let topicRank of topicRanks.slice(0,topNumber)">
-        <span class="label label-primary label-topic">{{topicRank.topic | uppercase}} <span class="weak">({{topicRank.count}})</span></span>
+        <span class="label label-primary label-topic">{{topicRank.data | uppercase}} <span class="weak">({{topicRank.count}})</span></span>
     </span>
 </div>
 </div>

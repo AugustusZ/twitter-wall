@@ -1,15 +1,24 @@
 import { Component, Input } from '@angular/core';
 import { Http, Headers, URLSearchParams } from "@angular/http";
+import { DataService } from '../shared/data.service';
 
 @Component({
   selector: 'tw-timeline',
   templateUrl: './app/components/timeline/timeline.component.html'
 })
 export class TimelineComponent {
-  @Input() tweets;
-  @Input() havingServerError;
-
+  tweets = [];
   showingRetweet: boolean = false;
+  @Input() havingServerError;
+  
+  constructor(private dataService: DataService) {
+    this.tweets = [];
+  }
+  ngOnInit() {
+      this.dataService.socket.on('new tweet', (tweet) => {
+            this.tweets.unshift(tweet); // prepend 
+      })
+  }
 
   messages = {
       headText: {

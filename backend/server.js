@@ -34,6 +34,14 @@ app.get('/socket', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/data', function(req, res, next) {
+    let data = utilities.tweetsData.slice(req.query.index);
+    res.json({
+        count: data.length,
+        data: data
+    });
+});
+
 server.listen(config.port, function () {
   console.log('Server listening at port %d', config.port);
 });

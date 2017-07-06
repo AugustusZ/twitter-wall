@@ -1,7 +1,7 @@
 var appSettings = {
     port: 4444,
 
-    wordCollectionFileName: 'word.txt',
+    wordCollectionFileName: 'words.txt',
 
     portionLength: 10, // the number of tweets pulled by client each time
 

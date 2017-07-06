@@ -10,11 +10,13 @@ var streamer = require('./streamer');
 var config = require('./config');
 var data = require('./data').data;
 
-// streamer.streamingData(twitter, utilities.updateWithNewTweet, io);
-streamer.mockStreamingData(data, utilities.updateWithNewTweet, io);
+streamer.streamingData(utilities.updateWithNewTweet, io);
+// streamer.mockStreamingData(data, utilities.updateWithNewTweet, io);
 
 io.on('connection', (socket) => {
-    console.log(`SOCKCET: A user connected. ID: ${socket.client.conn.id}`);
+    if (utilities.has(socket, 'client.conn.id')) {
+        console.log(`Socket.io: User [${socket.client.conn.id.substring(0,4)}] connected.`);
+    }
 
     // return most recent tweets to user config.numberOfRecentTweets
     let mostRecentTweets = utilities.getMostRecentTweets(); 
@@ -23,7 +25,9 @@ io.on('connection', (socket) => {
     }
 
     socket.on('disconnect', () => {
-        console.log(`SOCKCET: A user disconnected. ID: ${socket.client.conn.id}`);
+        if (utilities.has(socket, 'client.conn.id')) {
+         console.log(`Socket.io: User [${socket.client.conn.id.substring(0,4)}] disconnected.`);
+        }
     });
 });
 

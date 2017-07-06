@@ -39,6 +39,17 @@ var utilities = {
         utilities.updateRankingToClient('user', io);
         utilities.updateRankingToClient('topic', io);
         utilities.updateRankingToClient('media', io);
+    },
+
+    // https://stackoverflow.com/a/23809123/7090255
+    has: (obj, key) => {
+        return key.split(".").every((x) => {
+            if (typeof obj != "object" || obj === null || ! x in obj) {
+                return false;
+            }
+            obj = obj[x];
+            return true;
+        });
     }
 }
 

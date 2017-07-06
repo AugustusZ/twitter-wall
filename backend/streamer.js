@@ -19,12 +19,12 @@ var streamer = {
     },
 
     // real data streaming API
-    streamingData: (twitter, updateWithNewTweet, io) => {
-        twitter.stream('statuses/filter', {track: '#esri,#esriuc'}, function(stream) {
-            stream.on('data', function(tweet) {
+    streamingData: (updateWithNewTweet, io) => {
+        streamer.twitter.stream('statuses/filter', {track: '#esri,#esriuc'}, (stream) => {
+            stream.on('data', (tweet) => {
                 updateWithNewTweet(tweet, io);
             });
-            stream.on('error', function(error) {
+            stream.on('error', (error) => {
                 throw error;
             });
         });

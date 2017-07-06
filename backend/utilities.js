@@ -19,6 +19,7 @@ var utilities = {
         );
         if (JSON.stringify(ranker.previousRankings[what]) !== JSON.stringify(currentRanking)) {
             ranker.previousRankings[what] = currentRanking;
+            console.log(`Socket.io: Emits <${what}> ranks.`);
             io.emit(`${what} rank`, currentRanking);
         }
     },
@@ -35,6 +36,7 @@ var utilities = {
         ranker.updateRanking['media'](tweet);
 
         // emit to client if necessary
+        console.log(`Socket.io: Emits a new tweet.`);
         io.emit('new tweet', condensers.condenseTweet(tweet));
         utilities.updateRankingToClient('user', io);
         utilities.updateRankingToClient('topic', io);

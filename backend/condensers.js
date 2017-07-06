@@ -1,7 +1,5 @@
-var request = require('request');
-
-functions = {
-    condenseUser: function(user) {
+condensers = {
+    condenseUser: (user) => {
         return user = {
             name: user.name,
             screen_name: user.screen_name,
@@ -10,28 +8,18 @@ functions = {
         }
     },
 
-    condenseTweet: function(tweet) {
+    condenseTweet: (tweet) => {
         return condensed = {
             created_at: tweet.created_at,
             id_str: tweet.id_str,
             text: tweet.text,
             display_text_range: tweet.display_text_range,
-            user: functions.condenseUser(tweet.user),
+            user: condensers.condenseUser(tweet.user),
             is_original: !(!!tweet.retweeted_status || !!tweet.quoted_status),
             entities: tweet.entities,
             timestamp_ms: tweet.timestamp_ms
         }
-    },
-
-    getRanks: function(ranking, numOfRanks, cache) {
-        let rank = [];
-        ranking.find({ position: { $gte: 1, $lte: numOfRanks }, $limit: numOfRanks }).map(r => {
-            rank[r.position - 1] = cache[r.playerId];
-        });
-        return rank;
     }
-
-
 }
 
-module.exports = functions;
+module.exports = condensers;

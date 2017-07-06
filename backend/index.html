@@ -23,13 +23,13 @@
                 $('#tweet').prepend($('<li>').text(what.text));
             });
 
-            socket.on('new user rank', (what) => {
+            socket.on('user rank', (what) => {
                 $('#ranking').prepend($('<li>').text(`User: ${what[0].user.name}`));
             });
-            socket.on('new topic rank', (what) => {
+            socket.on('topic rank', (what) => {
                 $('#ranking').prepend($('<li>').text(`Topic: ${what[0].topic}`));
             });
-            socket.on('new media rank', (what) => {
+            socket.on('media rank', (what) => {
                 $('#ranking').prepend($('<li>').text(`Media: ${what[0]}`));
             });
         });

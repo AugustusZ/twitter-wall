@@ -1,8 +1,8 @@
 var appSettings = {
     rankSettings: {
-        NUM_OF_USER_RANKS: 5,
-        NUM_OF_TOPIC_RANKS: 5,
-        NUM_OF_MEDIA_RANKS: 1
+        'user': 5,
+        'topic': 5,
+        'media': 1
     },
     topicSettings: {
         blacklist: [

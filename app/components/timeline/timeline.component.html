@@ -4,9 +4,9 @@
         <p [innerHTML]="messages.paraText[havingServerError ? 'failure' : 'default']">{{messages.paraText.default}}</p>
         <p><a class="btn btn-primary btn-lg" href="mailto:zhangyankuan@outlook.com">Email to the author</a></p>
     </div>
-    <tw-tweet
-        [ngClass]="{}" 
-        *ngFor="let tweet of tweets"
-        [tweet]="tweet"
-        [showingRetweet]="showingRetweet"></tw-tweet>
+    <ul [@listAnimation]="tweets.length">
+        <li *ngFor="let tweet of tweets" [ngClass]="{ 'new-item': hasFetchedMissedTweets }" >
+            <tw-tweet [tweet]="tweet" [showingRetweet]="showingRetweet"></tw-tweet>
+        </li>
+    </ul>
 </div>

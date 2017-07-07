@@ -18,12 +18,14 @@ io.on('connection', (socket) => {
         console.log(`Socket.io: User [${socket.client.conn.id.substring(0,4)}] connected.`);
     }
 
-    // return most recent tweets to user config.numberOfRecentTweets
-    let mostRecentTweets = utilities.getMostRecentTweets(); 
-    if (mostRecentTweets.length > 0) {
-        socket.emit('recent tweets', mostRecentTweets);
-    }
-
+    socket.on('fetch missed tweets', () => {
+        let mostRecentTweets = utilities.getMostRecentTweets(); 
+        if (mostRecentTweets.length > 0) {
+            console.log(`Socket.io: Emits ${mostRecentTweets.length} tweets to [${socket.client.conn.id.substring(0,4)}].`);
+            io.emit('fetch missed tweets', mostRecentTweets);
+        }
+    });
+    
     socket.on('disconnect', () => {
         if (utilities.has(socket, 'client.conn.id')) {
          console.log(`Socket.io: User [${socket.client.conn.id.substring(0,4)}] disconnected.`);
@@ -38,12 +40,27 @@ app.get('/socket', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/data', function(req, res, next) {
-    let data = utilities.tweetsData.slice(req.query.index);
-    res.json({
-        count: data.length,
-        data: data
-    });
+app.get('/missed', function(req, res, next) {
+    let what = req.query.what;
+    if (what === 'mt') { // missed tweets
+        let mostRecentTweets = utilities.getMostRecentTweets(); 
+        console.log(`GET: Sent ${mostRecentTweets.length} tweets.`);
+        res.json({
+            count: mostRecentTweets.length,
+            data: mostRecentTweets
+        });
+    } else if (['user', 'topic', 'media'].indexOf(what) > -1) { 
+        let ranking = utilities.getRankingOf(what);
+        res.json({
+            count: ranking.length,
+            data: ranking
+        });
+    } else {
+        res.json({
+            count: -1,
+            data: []
+        });
+    }
 });
 
 server.listen(config.port, function () {

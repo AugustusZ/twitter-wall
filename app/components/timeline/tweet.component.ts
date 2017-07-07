@@ -83,7 +83,7 @@ export class TweetComponent {
       if (i > last_i) {
           result += this.escapeHTML(tweet.text.substring(last_i, i));
       }
-      console.log(result);
+      // console.log(result);
       return result;
   }
 }

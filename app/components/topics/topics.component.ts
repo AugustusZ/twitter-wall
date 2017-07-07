@@ -15,7 +15,14 @@ export class TopicsComponent {
   ngOnInit() {
       this.dataService.socket.on('topic rank', (ranks) => {
             this.topicRanks = ranks;
-      })
+      });
+
+      this.dataService
+          .getMissedRanking('topic')
+          .subscribe(res => {
+            this.topicRanks = res.json().data;
+            console.log('Just fetched missed topic ranking.');
+      });
   }
 
   updateTopNumber(newTopNumber) {

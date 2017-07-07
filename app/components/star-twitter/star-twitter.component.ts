@@ -15,7 +15,14 @@ export class StarTwitterComponent {
   ngOnInit() {
       this.dataService.socket.on('user rank', (ranks) => {
             this.userRanks = ranks;
-      })
+      });
+
+      this.dataService
+          .getMissedRanking('user')
+          .subscribe(res => {
+            this.userRanks = res.json().data;
+            console.log('Just fetched missed user ranking.');
+      });
   }
 
   updateTopNumber(newTopNumber) {

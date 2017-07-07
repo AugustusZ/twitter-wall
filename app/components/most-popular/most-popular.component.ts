@@ -14,6 +14,13 @@ export class MostPopularComponent {
   ngOnInit() {
       this.dataService.socket.on('media rank', (ranks) => {
             this.topicRanks = ranks;
-      })
+      });
+
+      this.dataService
+          .getMissedRanking('media')
+          .subscribe(res => {
+            this.mediaRanks = res.json().data;
+            console.log('Just fetched missed media ranking.');
+      });
   }
 }

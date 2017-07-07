@@ -11,12 +11,16 @@ var utilities = {
         return utilities.tweetsData.slice(start, end);
     },
 
-    updateRankingToClient: (what, io) => {
-        let currentRanking = ranker.getRanks(
+    getRankingOf: (what) => {
+        return ranker.getRanks(
             ranker.rankingData[what], 
             ranker.numberOfRanks[what], 
             ranker.cacheData[what]
         );
+    },
+
+    updateRankingToClient: (what, io) => {
+        let currentRanking = utilities.getRankingOf(what);
         if (JSON.stringify(ranker.previousRankings[what]) !== JSON.stringify(currentRanking)) {
             ranker.previousRankings[what] = currentRanking;
             console.log(`Socket.io: Emits <${what}> ranks.`);

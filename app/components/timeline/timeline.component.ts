@@ -11,13 +11,19 @@ export class TimelineComponent {
   showingRetweet: boolean = false;
   @Input() havingServerError;
   
-  constructor(private dataService: DataService) {
-    this.tweets = [];
-  }
+  constructor(private dataService: DataService) {}
+
   ngOnInit() {
       this.dataService.socket.on('new tweet', (tweet) => {
             this.tweets.unshift(tweet); // prepend 
-      })
+      });
+
+      this.dataService
+          .getMissedTweets()
+          .subscribe(res => {
+            this.tweets = res.json().data;
+            console.log('Just fetched missed tweets.');
+      });
   }
 
   messages = {

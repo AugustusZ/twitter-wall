@@ -15,7 +15,7 @@
             <div class="user-info"><div class="user-name">{{userRank.data.name}}</div>
             <div class="user-id">@{{userRank.data.screen_name}}</div>
             </div>
-            <div><span *ngIf="topNumber > 1"><strong>#{{i+1}}</strong> &middot; </span>Posted {{userRank.count}} tweets</div>
+            <div><span *ngIf="topNumber > 1"><strong>#{{i+1}}</strong> &middot; </span>Posted <span class="badge">{{userRank.count}}</span> tweets</div>
           </a>
         </div><hr *ngIf="!isLast">
       </div>

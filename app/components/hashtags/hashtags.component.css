@@ -1,3 +1,7 @@
+.label {
+    cursor:not-allowed;
+}
+
 .labels {
     height: 30px;
 }

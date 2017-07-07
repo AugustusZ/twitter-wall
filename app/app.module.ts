@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from "@angular/http";
 import { FormsModule } from "@angular/forms";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { SocketIoModule, SocketIoConfig } from 'ng2-socket-io';
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
@@ -21,6 +22,7 @@ import { DataService } from './components/shared/data.service';
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     SocketIoModule.forRoot(config),
     HttpModule,
     FormsModule

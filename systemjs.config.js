@@ -9,6 +9,9 @@
     'app': 'app', // 'dist',
 
     '@angular': 'node_modules/@angular',
+    '@angular/animations': 'node_modules/@angular/animations/bundles/animations.umd.js',
+    '@angular/animations/browser': 'node_modules/@angular/animations/bundles/animations-browser.umd.js',
+    '@angular/platform-browser/animations': 'node_modules/@angular/platform-browser/bundles/platform-browser-animations.umd.js',
     'rxjs': 'node_modules/rxjs',
     'time-ago-pipe':'node_modules/time-ago-pipe',
     'ng2-socket-io': 'node_modules/ng2-socket-io',

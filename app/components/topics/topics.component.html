@@ -1,14 +1,19 @@
-<div class="panel panel-primary topics-component">
+<div class="panel panel-primary topics-component" id="topic-rank">
     <ng-template #titleTemplate>
         {{topNumber > 1 ? 'Top '  + topNumber + ' Hot' : 'The Hottest'}} Topic{{topNumber > 1 ? 's' : ''}}
     </ng-template>
-<div class="panel-heading">
-    <tw-button-header (topNumber)="updateTopNumber($event)" [template]="titleTemplate"></tw-button-header>
-</div>
-<div class="panel-body">
-    <p *ngIf="topicRanks.length==0">Popular topics are on the way!</p>
-    <span *ngFor="let topicRank of topicRanks.slice(0,topNumber)">
-        <span class="label label-primary label-topic">{{topicRank.data | uppercase}} <span class="weak">({{topicRank.count}})</span></span>
-    </span>
-</div>
+    <div class="panel-heading">
+        <tw-button-header (topNumber)="updateTopNumber($event)" [template]="titleTemplate"></tw-button-header>
+    </div>
+    <div class="panel-body">
+        <p *ngIf="topicRanks.length==0">Popular topics are on the way!</p>
+        <ul [@listAnimation]="topNumber">
+            <li class="new-item active" *ngFor="let topicRank of topicRanks.slice(0,topNumber)">
+                <a href="https://twitter.com/search?q={{topicRank.data}}">
+                <div class="label label-primary label-topic">{{topicRank.data | uppercase}}<span class="badge" *ngIf="topNumber>1">{{topicRank.count}}    </span></div>
+                </a>
+            </li>
+        </ul>
+        <h3 *ngIf="topNumber==1">and more...</h3>
+    </div>
 </div>

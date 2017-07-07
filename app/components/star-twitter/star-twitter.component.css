@@ -1,0 +1,17 @@
+.user-rank {
+    height: 135px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+
+.new-item > hr {
+    margin: 0;
+}
+
+#star-twitter .panel-body {
+    padding: 0;
+}
+
+#star-twitter .new-item:hover {
+    background-color: #f5f8fa;
+}

@@ -1,4 +1,4 @@
-<div class="panel panel-primary">
+<div class="panel panel-primary" id="star-twitter">
   <ng-template #titleTemplate>
     Star Twitter{{topNumber > 1 ? 's' : ''}}
   </ng-template>
@@ -7,8 +7,8 @@
   </div>
   <div class="panel-body">
     <p *ngIf="userRanks.length==0">Star twitters are on the way!</p>
-    <div style="text-align: center">
-      <div  *ngFor="let userRank of userRanks.slice(0,topNumber); let isFirst = first; let isLast = last; let i = index">
+    <div style="text-align: center" [@listAnimation]="topNumber">
+      <div class="new-item" *ngFor="let userRank of userRanks.slice(0,topNumber); let isFirst = first; let isLast = last; let i = index">
         <div class="user-rank" [ngClass]="{'user-rank-first': isFirst}">
           <a href="http://twitter.com/{{userRank.data.screen_name}}">
             <div><img class="profile-image" src="{{userRank.data.profile_image_url}}" /></div>

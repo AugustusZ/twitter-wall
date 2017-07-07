@@ -7,3 +7,25 @@
     font-weight: normal;
 }
 
+#topic-rank li.new-item {
+    height: 54px;
+    padding-bottom: 4px;
+    margin-right: 5px;
+}
+
+#topic-rank li {
+    float: left;
+    display: block;
+}
+
+.badge {
+    display: initial;
+    margin-left: 3px;
+    background-color: #ffffff;
+    color: #2fa4e7;
+}
+
+.label-topic:hover {
+    background-color: #227aad; 
+}
+

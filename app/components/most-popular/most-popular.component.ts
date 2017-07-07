@@ -20,7 +20,7 @@ export class MostPopularComponent {
           .getMissedRanking('media')
           .subscribe(res => {
             this.mediaRanks = res.json().data;
-            console.log('Just fetched missed media ranking.');
+            console.log('Just fetched latest media ranking.');
       });
   }
 }

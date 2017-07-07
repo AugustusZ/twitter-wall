@@ -1,26 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { Http, Headers, URLSearchParams } from "@angular/http";
-import { trigger, state, style, transition, animate, keyframes, query, stagger } from '@angular/animations';
 import { DataService } from '../shared/data.service';
+import { animations } from '../shared/animations'
 
 @Component({
   selector: 'tw-timeline',
   templateUrl: './app/components/timeline/timeline.component.html',
-  animations: [
-    trigger('listAnimation', [
-      transition('* => *', [
-
-        query('.new-item:enter', style({ height: 0, opacity: 0}), { optional: true }),
-        query('.new-item:enter', stagger('200ms', [
-          animate('1s ease-in', keyframes([
-            style({ height: 0, opacity: 0, transform: 'translateY(-100%)', offset: 0}),
-            style({ height: '*', opacity: 0.5, transform: 'translateY(0)', offset: 0.3}),
-            style({ height: '*', opacity: 1, transform: 'translateY(0)', offset: 1})
-          ]))
-        ]), { optional: true })
-      ])
-    ])
-  ]
+  animations: [ animations() ]
 })
 export class TimelineComponent {
   tweets = [];

@@ -3,7 +3,7 @@ var appSettings = {
 
     wordCollectionFileName: 'words.txt',
 
-    portionLength: 10, // the number of tweets pulled by client each time
+    portionLength: 20, // the number of tweets pulled by client each time
 
     rankSettings: {
         'user': 5,

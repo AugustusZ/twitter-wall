@@ -12,6 +12,7 @@ export class TimelineComponent {
   tweets = [];
   showingRetweet: boolean = true;
   hasFetchedMissedTweets: boolean = false;
+  numOfCachedTweets : number = 42;
   @Input() havingServerError;
   
   constructor(private dataService: DataService) {}
@@ -19,6 +20,9 @@ export class TimelineComponent {
   ngOnInit() {
       this.dataService.socket.on('new tweet', (tweet) => {
             this.hasFetchedMissedTweets = true;
+            if (this.tweets.length > this.numOfCachedTweets) {
+              this.tweets = this.tweets.slice(0, this.tweets.length >> 1); // remove the second half
+            }
             this.tweets.unshift(tweet); // prepend 
       });
 

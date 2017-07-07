@@ -6,11 +6,11 @@ Build a **Twitter Wall** web app in one week.
 
 ## Requirements 
 
-- Using Angular 2
-- Displaying (directly) the lasted tweets (with images) containing certain hashtags (i.e. #Esri #EsriUC) when it is opened
-- Beautifully designed 
-- Showing information (e.g. popular topics)
-- Using GitHub to show progress (no dumping)
+- [x] Using Angular 2
+- [x] Displaying (directly) the latest tweets (with images) containing certain hashtags (i.e. `#Esri` `#EsriUC`) when it is opened
+- [x] Beautifully designed 
+- [x] Showing information (e.g. popular topics)
+- [x] Using GitHub to show progress (no dumping)
 
 ## Procedure
 
@@ -22,43 +22,87 @@ Build a **Twitter Wall** web app in one week.
 | 4 | Design wireframe / mockup | 6/28 |
 | 5 | Learn Node.js, TypeScript, and Angular 2 | 6/28, 6/29 |
 | 6 | Setup GitHub and environment | 6/30 |
-| 7 | Implement app and compose document  | 6/30, 7/1, 7/2 |
-| 8 | Test, debug, and refactor  | 7/2, 7/3 |
-| 9 | Deploy app on Google Cloud Platform  | 7/4 |
-| 10 | Submit app and document  | 7/4 |
+| 7 | Implement app and compose document  | 6/30, 7/1, 7/2, 7/3 |
+| 8 | Reconstruct project folder | 7/4 |
+| 9 | Refine frontend UI -- Dashboard | 7/5 |
+| 10 | Refine frontend UI -- Timeline | 7/5 |
+| 11 | Rebuild backend and frontend with new data exchange pattern`socket.io` | 7/6 |
+| 12 | Migrate to V4 | 7/6 |
+| 13 | Add animations  | 7/7 |
+| 14 | Make Demo video  | 7/7 |
+| 15 | Submit app and document  | 7/7 |
 
-## Functionalities
 
-### Timeline
-- Clickable user
-	- Profile image: `profile_image_url`, `profile_image_url_https`
-	- Name: `user.name`
-	- ID: `user.screen_name`
-	- Verified: `user.verified`
-- Tweet text: `text`
-- Time: `created_at`, `timestamp_ms`
-- Media
+## Implemented Functionalities
 
-### Information 
+> `-->`: click and jump to
 
-- Hashtags (1+)
-- Star Twitter (1) (based on tagged tweet count)
-	- Clickable user
-		- Profile image: `profile_image_url`, `profile_image_url_https`
-		- Name: `user.name`
-		- ID: `user.screen_name`
-		- Verified: `user.verified`
+### Timeline (on right)
+ 
+- Launch
+	- Loading page with (dummy) progress bar	
+		![](launching-app.png)
+		
+	- "Fetch on Launch": fetch those tweets (20, determined by server's `protionSize` in `config.js`) clients just miss out before clients launch, if any	
+		![](fecthing-missed-tweets.png)
+	
+	- No animation for displaying missed tweets **vs** animation for new newly streamed tweets
+		![](fetched-and-display-tweets.png)	
+		
+- Clickable user (see image below)
+ 	- Profile image --> user's profile page
+	- Name --> user's profile page
+	- ID --> user's profile page
+	- <s>Verified: `user.verified`</s>
+- Clickable tweet
+	![](tweet-block.png)
+		
+	-  Tweet exclusive area (panel) --> original tweet on Twitter
+	-  Posted time --> original tweet on Twitter
+	-  Tweet entities
+		-  URLs --> original target
+		-  mentions --> mentioned user's profile page
+		-  hashtags --> hashtags search results on Twitter
+		-  media --> original tweet on twitter
+- Special links
+	- `GitHub`
+	- `More` --> search results on hashtags on Twitter
+	- `Top` --> the top go the page
+- Remove old tweets on Timeline
+	- always keep tweets under certain number 
+
+### Information  / Dashboard (on left)
+- Launch
+	- "Fetch on Launch": fetch most recent ranking information from server, if any
+- Hashtags 
+	- Not editable  
+- Star Twitter (1 OR 5) (based on tagged tweet count)
+	-  <kbd>Show more</kbd> / <kbd>Show less</kbd> button with dynamic header text
+	- Clickable user --> profile page
+	- Clickable numbers of posts --> profile page
+	- animation for showing more
 - Topics 
-	- Text
-	- Count
-	- Plot	
-- Most Popular Media (based on RT and RE count)
-	- Photo
-	- Video
+	-  <kbd>Show more</kbd> / <kbd>Show less</kbd> button with dynamic header text
+	- Number of appearance 
+ 	- Animation for "showing more" 
+	- Clickable topic --> Twitter search result
+	- blacklist filtering (actually done on server side)
+- Most Popular Media (based on RT and Like count)
+	- Clickable Photo --> original tweet
+	- <s>Video</s> (not available in streaming API)
+
+### Responsiveness
+
+- Hide information panels when screen is small
+
+	![](lg.png)
+	![](md.png)
+	![](sm.png)
+	![](xs.png)
 
 ### (Future Features)
 - Hotspot Map
-- Responsiveness
+- <s>Responsiveness</s> *implemented*
 - Pin-to-Top
 - Editable hashtags
 
@@ -71,7 +115,7 @@ Dimension: 1024x768 [View it on Wireframe.cc](https://wireframe.cc/OPrqLi)
 Dimension: 1024x700
 ![mockup](mockup.png)
 
-## Architecture Design
+## <s>Architecture Design</s>
 
 ### API
 
@@ -123,9 +167,9 @@ this app should be composed of three parts as follows:
 2. Server 
 3. Data store 
 
-The server is running all the time (no stopping and starting) with fixed keywords (for now). While the server gets back stream results, a few more values (for the things needed for the front end) should be also calculated and stored in memory (data store). When the clients connect to the backend, the server provides a `GET` request connection with appropriate JSON needed for front end. In this way, it is not possible to reach the limit for one credential. As a consequence, when the app launches in users' browsers at different times, the users should see the same at the same moment.
+The server is running all the time (no stopping and starting) with fixed keywords (for now). While the server gets back stream results, a few more values (for the things needed for the front end) should be also calculated and stored in memory (data store). <s>When the clients connect to the backend, the server provides a `GET` request connection with appropriate JSON needed for front end. In this way, it is not possible to reach the limit for one credential.</s> As a consequence, when the app launches in users' browsers at different times, the users should see the same at the same moment.
 
-### Data Communication 
+### <s>Data Communication</s> 
 
 - **Twitter API --> Server**: A Streaming API's [tweet JSON](https://dev.twitter.com/overview/api/tweets) is taken **untouched** when prepended into the `tweetsData` array on server. 
 
@@ -139,7 +183,7 @@ The server is running all the time (no stopping and starting) with fixed keyword
 
 - **Server --> Client**: The server only needs to pick up where this client left off and sends back an **incremental update** JSON as well as ranking information. See more details in the section of **JSON Fields Spec** below.
 	
-## JSON Fields Spec
+## <s>JSON Fields Spec</s>
 
 Overview:
 
@@ -237,3 +281,87 @@ Then let's see a sample `tweet` JSON (condensed from [Twitter `tweet` object](ht
 	}
 
 all fields are the same as those in Twitter's definition, except for `is_orginal`.
+
+
+## Architecture Re-design (with `socket.io`)
+
+### API 
+
+Using the previous one. Meanwhile, there is a node package `node-tweet-stream` doing the same thing. 
+
+### Architecture
+
+Now, each component is only responsible for its own data and does its own communication with server. 
+
+### Data communication 
+
+Two parts of communications:
+
+1. Server emitting new streamed tweets and new rankings -- `socket.io` & `ng2-socket-io`
+	- Once there is  a tweet streamed to server, separately update ranking information locally, and 
+	- Emit new tweet (a more succinct `tweet[]`, see below) as well as one or more updated rankings if necessary (same data structure as that in previous design: `user_rank[]`, `topic_rank[]`, `media_rank[]`) 
+	
+	        tweet: {
+	            created_at: tweet.created_at,
+	            id_str: tweet.id_str,
+	            text: tweet.text,
+	            display_text_range: tweet.display_text_range,
+	            user: condensers.condenseUser(tweet.user),
+	            is_original: !(!!tweet.retweeted_status || !!tweet.quoted_status),
+	            entities: tweet.entities,
+	            timestamp_ms: tweet.timestamp_ms
+	        }
+	        
+	- Events:
+		- `new tweet`
+		- `user rank`
+		- `topic rank`
+		- `media rank`
+2. Client fetching missed tweets and latest rankings -- `GET` method
+	-  "Fetch on Launch"
+	-  On `/missed` 
+		- query field name `what`
+		- query value can be one of 
+			- `mt`: missed tweets
+			- `user`
+			- `topic`
+			- `media`
+	
+---
+# What I learned in the past two weeks
+
+## Language
+
+- Typescript 
+- ECMAScript 2015
+
+## Frameworks
+
+- Angular 2 / 4 
+- Node.js 
+
+## Techniques 
+
+- Quickly setup as server in any folder with `node` / `lite-server`
+- Keep serving for development with `node-dev` / `ng serve --open`
+- Plunker -- online Angular environment 
+- Pass sensitive variables (such as keys and secrets) as `process.env.*` to programs
+- Realtime communication package `socket.io` with `ng2-socket-io`
+- Visual Studio Code
+- Mock data API streaming with collected data so that API rate limit will not be easily reached
+
+## Other
+
+- How to design data communication interfaces / data structures 
+- How to separate work / data of client and server
+- How to build a medium size web app with state-of-art techniques from scratch 
+- First start with naive solution and then iterate to better one
+
+---
+# What I can do better next time
+
+ - (Should) start with style guide for both coding and project folder structure   
+ - (Should) better balance in working and resting
+ 
+
+

@@ -27,8 +27,6 @@ export class TimelineComponent {
           .subscribe(res => {
             res.json().data.forEach((tweet) => {
                 this.tweets.unshift(tweet); // prepend 
-            }).promise(() => {
-                this.hasFetchedMissedTweets = true;
             });
             console.log('Just fetched missed tweets.');
       });

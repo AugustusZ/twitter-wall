@@ -1,4 +1,4 @@
-<div class="container col-lg-8">
+<div class="container col-lg-8 col-md-8 col-sm-12">
     <div class="jumbotron" *ngIf="tweets.length==0">
         <h1 [innerHTML]="messages.headText[havingServerError ? 'failure' : 'default']">{{messages.headText.default}}</h1>
         <p [innerHTML]="messages.paraText[havingServerError ? 'failure' : 'default']">{{messages.paraText.default}}</p>
@@ -7,6 +7,12 @@
     <ul [@listAnimation]="tweets.length">
         <li *ngFor="let tweet of tweets" [ngClass]="{ 'new-item': hasFetchedMissedTweets }" >
             <tw-tweet [tweet]="tweet" [showingRetweet]="showingRetweet"></tw-tweet>
+        </li>
+        <li>
+            <ul class="pager">
+                <li><a href="https://twitter.com/search?l=&q=%23esri%20OR%20%23esriuc">More</a></li>
+                <li class="next"><a href="#">Top &uarr;</a></li>
+            </ul>
         </li>
     </ul>
 </div>

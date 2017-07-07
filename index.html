@@ -24,11 +24,27 @@
       <div class="jumbotron">
         <h1>Loading Twitter Wall...</h1>
         <div class="progress progress-striped active">
-          <div class="progress-bar" style="width: 67%"></div>
+          <div id="bar" class="progress-bar" style="width: 0%"></div>
         </div>
       </div>
     </tw-app>
   </div>
+<script>
+    // just a dummy progress bar...
+    function move() {
+    var elem = document.getElementById("bar"); 
+    var width = 1;
+    var id = setInterval(frame, 10);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+        } else {
+            width+=10; 
+            elem.style.width = width + '%'; 
+        }
+    }
+  }
+  move();
+</script>
 </body>
-
 </html>

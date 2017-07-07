@@ -21,7 +21,9 @@ export class TimelineComponent {
       this.dataService
           .getMissedTweets()
           .subscribe(res => {
-            this.tweets = res.json().data;
+            res.json().data.map((tweet) => {
+                this.tweets.unshift(tweet); // prepend 
+            })
             console.log('Just fetched missed tweets.');
       });
   }

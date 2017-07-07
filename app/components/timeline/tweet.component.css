@@ -36,3 +36,11 @@
 div.tweet.panel.panel-default {
     margin: 0;
 }
+
+div.tweet.panel.panel-default:hover {
+    background-color: #f5f8fa;
+}
+
+.panel-anchor {
+    color: #555555;
+}

@@ -28,7 +28,7 @@ Build a **Twitter Wall** web app in one week.
 | 10 | Refine frontend UI -- Timeline | 7/5 |
 | 11 | Rebuild backend and frontend with new data exchange pattern`socket.io` | 7/6 |
 | 12 | Migrate to V4 | 7/6 |
-| 13 | Add animations  | 7/7 |
+| 13 | Add animations and refine UI | 7/7 |
 | 14 | Make Demo video  | 7/7 |
 | 15 | Submit app and document  | 7/7 |
 
@@ -46,7 +46,8 @@ Build a **Twitter Wall** web app in one week.
 	- "Fetch on Launch": fetch those tweets (20, determined by server's `protionSize` in `config.js`) clients just miss out before clients launch, if any	
 		![](fecthing-missed-tweets.png)
 	
-	- No animation for displaying missed tweets **vs** animation for new newly streamed tweets
+	- No animation for displaying missed tweets **vs** animation for new newly streamed tweets 
+		![](https://user-images.githubusercontent.com/8922602/27957358-0225cb52-62d3-11e7-80d0-b4d8c390c813.gif) 
 		![](fetched-and-display-tweets.png)	
 		
 - Clickable user (see image below)
@@ -72,6 +73,7 @@ Build a **Twitter Wall** web app in one week.
 	- always keep tweets under certain number 
 
 ### Information  / Dashboard (on left)
+
 - Launch
 	- "Fetch on Launch": fetch most recent ranking information from server, if any
 - Hashtags 
@@ -93,14 +95,15 @@ Build a **Twitter Wall** web app in one week.
 
 ### Responsiveness
 
-- Hide information panels when screen is small
+- Hide information panels when screen is `xs`
 
-	![](lg.png)
-	![](md.png)
-	![](sm.png)
-	![](xs.png)
+	![lg](lg.png)
+	![ld](md.png)
+	![sm](sm.png)
+	![xs](xs.png)
 
 ### (Future Features)
+
 - Hotspot Map
 - <s>Responsiveness</s> *implemented*
 - Pin-to-Top
@@ -287,7 +290,7 @@ all fields are the same as those in Twitter's definition, except for `is_orginal
 
 ### API 
 
-Using the previous one. Meanwhile, there is a node package `node-tweet-stream` doing the same thing. 
+Using the generic one (the previous one). Meanwhile, there is a node package `node-tweet-stream` doing the same thing. 
 
 ### Architecture
 
@@ -355,9 +358,10 @@ Two parts of communications:
 - How to design data communication interfaces / data structures 
 - How to separate work / data of client and server
 - How to build a medium size web app with state-of-art techniques from scratch 
-- First start with naive solution and then iterate to better one
+- First start with naive solution and then iterate to a better one
 
 ---
+
 # What I can do better next time
 
  - (Should) start with style guide for both coding and project folder structure   

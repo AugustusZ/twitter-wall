@@ -29,10 +29,10 @@ var ranker = {
         'media': new Ranking({ maxScore: 1000000, branchFactor: 1000 })
     },
 
-    previousRankings: {
-        'user': {},
-        'topic': {},
-        'media': {}
+    previousRankingStr: {
+        'user': '',
+        'topic': '',
+        'media': ''
     },
 
     updateRanking: {

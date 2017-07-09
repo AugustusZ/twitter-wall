@@ -21,8 +21,10 @@ var utilities = {
 
     updateRankingToClient: (what, io) => {
         let currentRanking = utilities.getRankingOf(what);
-        if (JSON.stringify(ranker.previousRankings[what]) !== JSON.stringify(currentRanking)) {
-            ranker.previousRankings[what] = currentRanking;
+        let currentRankingStr = JSON.stringify(currentRanking);
+        if (ranker.previousRankingStr[what] != currentRankingStr) {
+            // update with string in order to get rid of nested object reference 
+            ranker.previousRankingStr[what] = currentRankingStr; 
             console.log(`Socket.io: Emits <${what}> ranks.`);
             io.emit(`${what} rank`, currentRanking);
         }

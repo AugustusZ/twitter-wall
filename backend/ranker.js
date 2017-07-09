@@ -55,6 +55,8 @@ var ranker = {
                 remove_digits: true,
                 return_changed_case: true,
                 remove_duplicates: false
+            }).filter((keyword) => {
+                return !keyword.match(/^http[s]*:\/\//i);
             }).map((keyword) => {
                 let topic = keyword.replace(/[^A-Za-z0-9\.+]+/gi, '');
                 

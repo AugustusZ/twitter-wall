@@ -88,24 +88,22 @@ var ranker = {
         },
 
         'media': (tweet) => {
-            let retweetedTweet = tweet.retweeted_status;
-            if (!!retweetedTweet) {
-                let media = retweetedTweet.entities.media;
-                if (!!media && media.length > 0) { // there is retweeted media.
-                    let mediaId = media[0].id;
-                    let weight = retweetedTweet.retweet_count * 2 + retweetedTweet.favorite_count;
-                    if (mediaId in ranker.cacheData['media']) {
-                        if (weight > ranker.cacheData['media'][mediaId]) {
-                            ranker.rankingData['media'].addPlayerPoints({ playerId: mediaId, points: ranker.cacheData['media'][mediaId] - weight });
-                            ranker.cacheData['media'][mediaId].weight = weight;
-                        }
-                    } else {
-                        ranker.cacheData['media'][mediaId] = {
-                            count: weight,
-                            data: media
-                        };
-                        ranker.rankingData['media'].addPlayerPoints({ playerId: mediaId, points: weight });
+            let mediaTweet = !!tweet.retweeted_status ? tweet.retweeted_status : tweet;
+            let media = mediaTweet.entities.media;
+            if (!!media && media.length > 0) { // there is retweeted media.
+                let mediaId = media[0].id;
+                let weight = mediaTweet.retweet_count * 2 + mediaTweet.favorite_count + 1;
+                if (mediaId in ranker.cacheData['media']) {
+                    if (weight > ranker.cacheData['media'][mediaId]) {
+                        ranker.rankingData['media'].addPlayerPoints({ playerId: mediaId, points: ranker.cacheData['media'][mediaId] - weight });
+                        ranker.cacheData['media'][mediaId].weight = weight;
                     }
+                } else {
+                    ranker.cacheData['media'][mediaId] = {
+                        count: weight,
+                        data: media
+                    };
+                    ranker.rankingData['media'].addPlayerPoints({ playerId: mediaId, points: weight });
                 }
             }
         }

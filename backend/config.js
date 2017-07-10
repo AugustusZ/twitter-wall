@@ -1,4 +1,6 @@
 var appSettings = {
+    mock: true,
+
     port: 4444,
 
     wordCollectionFileName: 'words.txt',

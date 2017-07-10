@@ -10,8 +10,11 @@ var streamer = require('./streamer');
 var config = require('./config');
 var data = require('./data').data;
 
-streamer.streamingData(utilities.updateWithNewTweet, io);
-// streamer.mockStreamingData(data, utilities.updateWithNewTweet, io);
+if (config.mock) {
+    streamer.mockStreamingData(data, utilities.updateWithNewTweet, io);
+} else {
+    streamer.streamingData(utilities.updateWithNewTweet, io);
+}
 
 io.on('connection', (socket) => {
     if (utilities.has(socket, 'client.conn.id')) {
